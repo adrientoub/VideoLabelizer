@@ -31,7 +31,8 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PreviewController.getInstance().play();
+                if (PreviewController.getInstance().play(true))
+                    button.setText(button.getText().equals("Play") ? "Pause" : "Play");
             }
         });
         panel.add(button);
