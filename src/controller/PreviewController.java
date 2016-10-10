@@ -57,4 +57,12 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
     }
     return true;
   }
+
+  public void next() {
+    if (media == null)
+      return;
+
+    frame += diff * seconds;
+    emit("marker:changed", frame);
+  }
 }

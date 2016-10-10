@@ -26,16 +26,21 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
     public LabelizeView(Application application) {
         super(application);
         panel = new JPanel();
-        JButton button = new JButton("Play");
-        button.setActionCommand("Play");
-        button.addActionListener(new ActionListener() {
+        JButton play = new JButton("Play");
+        play.setActionCommand("Play");
+        play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (PreviewController.getInstance().play(true))
-                    button.setText(button.getText().equals("Play") ? "Pause" : "Play");
+                    play.setText(play.getText().equals("Play") ? "Pause" : "Play");
             }
         });
-        panel.add(button);
+        panel.add(play);
+
+        JButton next = new JButton("Next");
+        next.setActionCommand("Next");
+        next.addActionListener(e -> PreviewController.getInstance().next());
+        panel.add(next);
     }
 
     @Override
