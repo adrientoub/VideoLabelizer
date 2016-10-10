@@ -23,6 +23,7 @@ public final class VideoLabelizer extends Application {
     protected void start(final JFrame frame) {
         optionView = new OptionView(this);
         previewView = new PreviewView(this);
+        LabelizeView labelizeView = new LabelizeView(this);
 
         frame.setTitle("Video Labelizer");
         try {
@@ -34,7 +35,10 @@ public final class VideoLabelizer extends Application {
 
         // Set the menu bar of the application frame.
         frame.setJMenuBar(new MenuView(this).render());
-        JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, optionView.render(), previewView.render());
+        JSplitPane jSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane top = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, optionView.render(), previewView.render());
+        jSplitPane.setTopComponent(top);
+        jSplitPane.setBottomComponent(labelizeView.render());
         frame.setContentPane(jSplitPane);
     }
 

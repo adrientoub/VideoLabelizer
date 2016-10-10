@@ -41,7 +41,7 @@ public final class MenuView extends View<MenuModel, MenuController> {
   private void addFileMenu(JMenuBar menuBar) {
     JMenu file = new JMenu("File");
 
-    String[] strings = { "New", "Export", "Save", "Exit" };
+    String[] strings = { "New", "Save", "Exit" };
     for (String name: strings) {
       file.add(createItem(name));
     }

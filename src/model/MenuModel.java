@@ -39,27 +39,6 @@ public final class MenuModel extends Model {
         }
     }
 
-    public void exportVideo() {
-        JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.showSaveDialog(null);
-        File selected = jFileChooser.getSelectedFile();
-        if (selected != null) {
-            final String videoExtension = "avi";
-            String path = selected.getAbsolutePath();
-            String extension = getExtension(selected);
-            if (!extension.equals(videoExtension))
-                path += "." + videoExtension;
-
-            this.emit("media:export", path);
-        }
-    }
-
-
-    public void saveImage() {
-        String filename = new Date().getTime() + "." + extension;
-        this.emit("media:screenshot", filename);
-    }
-
     public void exit(int i) {
         System.exit(i);
     }

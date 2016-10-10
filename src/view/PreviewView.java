@@ -21,7 +21,6 @@ import java.awt.image.BufferedImage;
  * displaying, and completing todo items.
  */
 public final class PreviewView extends View<PreviewModel, PreviewController> {
-
     ImagePanel imagePanel;
 
     public PreviewView(final Application application) {
@@ -34,17 +33,15 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
 
     this.on("media:new", this::handle);
     this.on("marker:changed", this::handleMarker);
-    this.on("filter:applied", this::handleMarker);
-    this.on("timeline:changed", this::handleMarker);
   }
 
     private void handle(Media m) {
-        PreviewController.setMedia(m);
+        controller().setMedia(m);
         imagePanel.setImage(m.getImage(0));
         imagePanel.repaint();
     }
 
-    private void handleMarker(int frame) {
+    public void handleMarker(int frame) {
         try {
             BufferedImage bi = new GenerateFrame(frame).call();
             if (bi != null)

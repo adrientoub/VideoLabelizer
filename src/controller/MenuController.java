@@ -27,10 +27,7 @@ public final class MenuController extends Controller<MenuModel, MenuView> {
                 }
                 break;
             case "Save":
-                this.model().saveImage();
-                break;
-            case "Export":
-                this.model().exportVideo();
+                // TODO
                 break;
         }
     }
