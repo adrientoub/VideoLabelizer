@@ -34,6 +34,10 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
         return media;
     }
 
+    public void setFrame(int frame) {
+        this.frame = frame;
+    }
+
     public boolean play(boolean pressed) {
         if (media == null)
             return false;

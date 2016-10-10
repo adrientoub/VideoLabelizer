@@ -53,6 +53,10 @@ public final class VideoLabelizer extends Application {
         return labelizeView;
     }
 
+    public PreviewView getPreviewView() {
+        return previewView;
+    }
+
     private static void loadLibraries() {
         String lib_ext;
         String separator;
