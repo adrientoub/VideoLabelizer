@@ -11,19 +11,15 @@ public class Label {
     private int frame;
     private List<Point> points = new ArrayList<>();
 
-    public Label(int frame, List points) {
+    public Label(int frame, List<Point> points) {
         this.points = points;
         this.frame = frame;
-    }
-
-    public List<Point> getPoints() {
-        return points;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Frame " + frame + "\n");
+        sb.append("Frame ").append(frame).append("\n");
         for (Point p : points) {
             sb.append((int)p.getX());
             sb.append(',');
