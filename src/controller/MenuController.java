@@ -26,7 +26,7 @@ public final class MenuController extends Controller<MenuModel, MenuView> {
                 }
                 break;
             case "Save":
-                // TODO
+                PreviewController.getInstance().saveToDisk();
                 break;
         }
     }

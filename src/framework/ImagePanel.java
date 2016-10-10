@@ -1,6 +1,6 @@
 package framework;
 
-import controller.PointController;
+import controller.MouseLabelController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class ImagePanel extends JPanel {
     private int width;
@@ -15,6 +17,7 @@ public class ImagePanel extends JPanel {
     private BufferedImage image;
     private JPanel containingPanel;
     private final boolean scaled = false;
+    private List<Point> points = new ArrayList<>();
 
     /**
      * Create the ImagePanel
@@ -39,7 +42,7 @@ public class ImagePanel extends JPanel {
         width = image.getWidth();
         height = image.getHeight();
         setPreferredSize(new Dimension(width, height));
-        addMouseListener(new PointController(this));
+        addMouseListener(new MouseLabelController(this));
     }
 
     /**
@@ -109,6 +112,7 @@ public class ImagePanel extends JPanel {
         width = image.getWidth();
         height = image.getHeight();
         setPreferredSize(new Dimension(width, height));
+        points = new ArrayList<>();
         this.repaint();
     }
 
@@ -116,5 +120,9 @@ public class ImagePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+    }
+
+    public List<Point> getPoints() {
+        return points;
     }
 }

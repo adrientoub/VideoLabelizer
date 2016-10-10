@@ -9,10 +9,10 @@ import java.awt.event.MouseEvent;
 /**
  * Created by Adrien on 10/10/2016.
  */
-public class PointController extends MouseAdapter {
+public class MouseLabelController extends MouseAdapter {
     private ImagePanel imagePanel;
 
-    public PointController(ImagePanel imagePanel) {
+    public MouseLabelController(ImagePanel imagePanel) {
         this.imagePanel = imagePanel;
     }
 
@@ -23,6 +23,7 @@ public class PointController extends MouseAdapter {
         graphics2D.setColor(Color.blue);
         graphics2D.fillOval(e.getX() - 12, e.getY() - 12, 24, 24);
         graphics2D.dispose();
+        imagePanel.getPoints().add(new Point(e.getX(), e.getY()));
         imagePanel.repaint();
     }
 }

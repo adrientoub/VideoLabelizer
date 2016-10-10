@@ -2,7 +2,6 @@ package process;
 
 import controller.PreviewController;
 import manager.Media;
-import view.PreviewView;
 
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Callable;

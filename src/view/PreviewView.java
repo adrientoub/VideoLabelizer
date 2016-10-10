@@ -15,6 +15,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@link PreviewView} class takes care of rendering the view for creating,
@@ -22,6 +25,7 @@ import java.awt.image.BufferedImage;
  */
 public final class PreviewView extends View<PreviewModel, PreviewController> {
     private ImagePanel imagePanel;
+    private ArrayList<manager.Label> labels = new ArrayList<>();
 
     public PreviewView(final Application application) {
         super(application);
@@ -34,6 +38,25 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
 
         this.on("media:new", this::handle);
         this.on("marker:changed", this::handleMarker);
+        this.on("save:points", this::savePoints);
+        this.on("save:disk", this::saveToDisk);
+    }
+
+    private void saveToDisk(PreviewView previewView) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", false));
+            for (manager.Label label: labels) {
+                bw.write(label.toString());
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void savePoints(PreviewView previewView) {
+        List<Point> points = imagePanel.getPoints();
+        labels.add(new manager.Label(controller().getFrame(), points));
     }
 
     private void handle(Media m) {

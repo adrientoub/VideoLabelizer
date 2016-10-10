@@ -57,11 +57,35 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
         return true;
     }
 
+    public int getFrame() {
+        return frame;
+    }
+
     public void next() {
         if (media == null)
             return;
 
         frame += diff * seconds;
         emit("marker:changed", frame);
+    }
+
+    public void prev() {
+        if (media == null)
+            return;
+
+        frame -= diff * seconds;
+        if (frame < 0)
+            frame = 0;
+        emit("marker:changed", frame);
+    }
+
+    public void save() {
+        if (media == null)
+            return;
+        emit("save:points");
+    }
+
+    public void saveToDisk() {
+        emit("save:disk");
     }
 }

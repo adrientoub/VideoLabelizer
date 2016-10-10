@@ -27,7 +27,6 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
         super(application);
         panel = new JPanel();
         JButton play = new JButton("Play");
-        play.setActionCommand("Play");
         play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,10 +36,20 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
         });
         panel.add(play);
 
+        JButton prev = new JButton("Previous");
+        prev.addActionListener(e -> PreviewController.getInstance().prev());
+        panel.add(prev);
+
         JButton next = new JButton("Next");
-        next.setActionCommand("Next");
         next.addActionListener(e -> PreviewController.getInstance().next());
         panel.add(next);
+
+        JButton nextSave = new JButton("Next and Save");
+        nextSave.addActionListener(e -> {
+            PreviewController.getInstance().save();
+            PreviewController.getInstance().next();
+        });
+        panel.add(nextSave);
     }
 
     @Override
