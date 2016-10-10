@@ -14,10 +14,10 @@ public interface Media extends Cloneable {
     Dimension getResolution();
 
     /**
-     * Returns the image at the selected frame.
+     * Returns the previewImage at the selected frame.
      *
      * @param frameNb The frame number
-     * @return A filtered image
+     * @return A filtered previewImage
      */
     BufferedImage getImage(int frameNb);
 

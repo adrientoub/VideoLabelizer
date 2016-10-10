@@ -1,5 +1,7 @@
 package framework;
 
+import controller.PointController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +14,13 @@ public class ImagePanel extends JPanel {
     private int height;
     private BufferedImage image;
     private JPanel containingPanel;
+    private final boolean scaled = false;
 
     /**
      * Create the ImagePanel
      *
-     * @param width  the width of the image
-     * @param height the height of the image
+     * @param width  the width of the previewImage
+     * @param height the height of the previewImage
      */
     public ImagePanel(int width, int height) {
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -29,19 +32,20 @@ public class ImagePanel extends JPanel {
     /**
      * Create the ImagePanel
      *
-     * @param image: image to display
+     * @param image: previewImage to display
      */
     public ImagePanel(BufferedImage image) {
         this.image = image;
         width = image.getWidth();
         height = image.getHeight();
         setPreferredSize(new Dimension(width, height));
+        addMouseListener(new PointController(this));
     }
 
     /**
      * Create the ImagePanel
      *
-     * @param file: image to display
+     * @param file: previewImage to display
      */
     public ImagePanel(File file) {
         try {
@@ -73,20 +77,27 @@ public class ImagePanel extends JPanel {
 
     @Override
     public int getWidth() {
-        if (containingPanel == null) {
-            return width;
-        }
+        if (scaled) {
+            if (containingPanel == null) {
+                return width;
+            }
 
-        return (int) getScaledSize().getWidth();
+            return (int) getScaledSize().getWidth();
+        } else
+            return width;
     }
 
     @Override
     public int getHeight() {
-        if (containingPanel == null) {
+        if (scaled) {
+            if (containingPanel == null) {
+                return height;
+            }
+
+            return (int) getScaledSize().getHeight();
+        } else {
             return height;
         }
-
-        return (int) getScaledSize().getHeight();
     }
 
     public BufferedImage getImage() {

@@ -21,7 +21,7 @@ import java.awt.image.BufferedImage;
  * displaying, and completing todo items.
  */
 public final class PreviewView extends View<PreviewModel, PreviewController> {
-    ImagePanel imagePanel;
+    private ImagePanel imagePanel;
 
     public PreviewView(final Application application) {
         super(application);
@@ -29,11 +29,12 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
         this.model(new PreviewModel(application));
         this.controller(new PreviewController(application));
 
-        imagePanel = new ImagePanel(this.model().image());
+        // Create the imagePanel with a base image
+        imagePanel = new ImagePanel(this.model().previewImage());
 
-    this.on("media:new", this::handle);
-    this.on("marker:changed", this::handleMarker);
-  }
+        this.on("media:new", this::handle);
+        this.on("marker:changed", this::handleMarker);
+    }
 
     private void handle(Media m) {
         controller().setMedia(m);
