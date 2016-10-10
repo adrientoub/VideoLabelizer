@@ -14,6 +14,7 @@ import java.util.Arrays;
 public final class VideoLabelizer extends Application {
     private OptionView optionView;
     private PreviewView previewView;
+    private LabelizeView labelizeView;
 
     /**
      * Start the {@link VideoLabelizer}.
@@ -23,7 +24,7 @@ public final class VideoLabelizer extends Application {
     protected void start(final JFrame frame) {
         optionView = new OptionView(this);
         previewView = new PreviewView(this);
-        LabelizeView labelizeView = new LabelizeView(this);
+        labelizeView = new LabelizeView(this);
 
         frame.setTitle("Video Labelizer");
         try {
@@ -46,6 +47,10 @@ public final class VideoLabelizer extends Application {
         File dir = new File(path);
         File[] files = dir.listFiles((d, name) -> name.endsWith('.' + ext));
         return new ArrayList<>(Arrays.asList(files));
+    }
+
+    public LabelizeView getLabelizeView() {
+        return labelizeView;
     }
 
     private static void loadLibraries() {

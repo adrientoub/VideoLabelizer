@@ -3,6 +3,7 @@ package view;
 
 // General utilities
 
+import app.VideoLabelizer;
 import controller.PreviewController;
 import framework.Application;
 import framework.ImagePanel;
@@ -68,6 +69,7 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
     public void handleMarker(int frame) {
         try {
             BufferedImage bi = new GenerateFrame(frame).call();
+            ((VideoLabelizer)application()).getLabelizeView().setFrame(frame);
             if (bi != null)
                 imagePanel.setImage(bi);
         } catch (Exception e) {

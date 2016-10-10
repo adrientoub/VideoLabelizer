@@ -1,9 +1,11 @@
 package controller;
 
+import app.VideoLabelizer;
 import framework.Application;
 import framework.Controller;
 import manager.Media;
 import model.PreviewModel;
+import view.OptionView;
 import view.PreviewView;
 
 import javax.swing.*;
@@ -11,9 +13,7 @@ import javax.swing.*;
 public final class PreviewController extends Controller<PreviewModel, PreviewView> {
     private Media media;
     private int frame = 0;
-    private final int diff = 30;
     private static PreviewController instance;
-    private final double seconds = 2.0;
     private Timer t;
 
     public PreviewController(final Application application) {
@@ -47,10 +47,11 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
                 System.out.println("Played the video");
             }
         }
-        frame += diff * seconds;
+        OptionView optionView = ((VideoLabelizer)application()).getOptionView();
+        frame += optionView.getFps() * optionView.getSeconds();
         emit("marker:changed", frame);
         if (t == null) {
-            t = new Timer((int) (seconds * 1000), e -> play(false));
+            t = new Timer((int) (optionView.getSeconds() * 1000.0), e -> play(false));
             t.setRepeats(true);
             t.start();
         }
@@ -65,7 +66,8 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
         if (media == null)
             return;
 
-        frame += diff * seconds;
+        OptionView optionView = ((VideoLabelizer)application()).getOptionView();
+        frame += optionView.getFps() * optionView.getSeconds();
         emit("marker:changed", frame);
     }
 
@@ -73,7 +75,8 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
         if (media == null)
             return;
 
-        frame -= diff * seconds;
+        OptionView optionView = ((VideoLabelizer)application()).getOptionView();
+        frame -= optionView.getFps() * optionView.getSeconds();
         if (frame < 0)
             frame = 0;
         emit("marker:changed", frame);

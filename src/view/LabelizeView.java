@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
  */
 public class LabelizeView extends View<LabelizeModel, LabelizeController> {
     private JPanel panel;
+    private JLabel currentFrame;
 
     /**
      * Initialize a new {@link View} instance for the specified
@@ -50,6 +51,13 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
             PreviewController.getInstance().next();
         });
         panel.add(nextSave);
+
+        currentFrame = new JLabel("Frame 0");
+        panel.add(currentFrame);
+    }
+
+    public void setFrame(int frame) {
+        currentFrame.setText("Frame " + frame);
     }
 
     @Override

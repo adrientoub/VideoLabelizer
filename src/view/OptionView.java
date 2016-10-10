@@ -11,8 +11,8 @@ import java.awt.*;
 public final class OptionView extends View<OptionModel, OptionController> {
     private JSpinner fpsSpinner;
     private double fps = 30.0;
-    private JSpinner framesSpinner;
-    private int frames = 100;
+    private JSpinner secondsSpinner;
+    private double seconds = 2.0;
 
     public OptionView(final Application application) {
         super(application);
@@ -21,9 +21,9 @@ public final class OptionView extends View<OptionModel, OptionController> {
         fpsSpinner.addChangeListener(changeEvent ->
                 fps = ((SpinnerNumberModel)((JSpinner)changeEvent.getSource()).getModel()).getNumber().doubleValue());
 
-        framesSpinner = new JSpinner(new SpinnerNumberModel(frames, 0, 60000, 5));
-        framesSpinner.addChangeListener(changeEvent ->
-                frames = ((SpinnerNumberModel)((JSpinner)changeEvent.getSource()).getModel()).getNumber().intValue());
+        secondsSpinner = new JSpinner(new SpinnerNumberModel(seconds, 0.0, 10.0, 0.1));
+        secondsSpinner.addChangeListener(changeEvent ->
+                seconds = ((SpinnerNumberModel)((JSpinner)changeEvent.getSource()).getModel()).getNumber().doubleValue());
 
         this.model(new OptionModel(application));
         this.controller(new OptionController(application));
@@ -35,8 +35,8 @@ public final class OptionView extends View<OptionModel, OptionController> {
         viewPanel.setLayout(new GridLayout(optionCount, 2, 2, 5));
         viewPanel.add(new JLabel("FPS: "));
         viewPanel.add(fpsSpinner);
-        viewPanel.add(new JLabel("Frames to render: "));
-        viewPanel.add(framesSpinner);
+        viewPanel.add(new JLabel("Seconds: "));
+        viewPanel.add(secondsSpinner);
 
         return viewPanel;
     }
@@ -45,7 +45,7 @@ public final class OptionView extends View<OptionModel, OptionController> {
         return fps;
     }
 
-    public int getFrames() {
-        return frames;
+    public double getSeconds() {
+        return seconds;
     }
 }
