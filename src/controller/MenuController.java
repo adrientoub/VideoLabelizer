@@ -20,7 +20,7 @@ public final class MenuController extends Controller<MenuModel, MenuView> {
             case "Exit":
                 this.model().exit(0);
                 break;
-            case "New":
+            case "Open":
                 try {
                     this.model().newFile();
                 } catch (IllegalArgumentException | IOException e) {
@@ -44,6 +44,10 @@ public final class MenuController extends Controller<MenuModel, MenuView> {
                     PreviewController.getInstance().setFrame(frame);
                     emit("marker:changed", frame);
                 }
+                break;
+            case "Next":
+                PreviewController.getInstance().save();
+                PreviewController.getInstance().next();
                 break;
         }
     }
