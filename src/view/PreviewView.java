@@ -15,11 +15,17 @@ import process.GenerateFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
 import java.awt.Point;
+import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The {@link PreviewView} class takes care of rendering the view for creating,
@@ -46,7 +52,7 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
 
     private void saveToDisk(PreviewView previewView) {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", false));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(controller().getMedia().getName() + "-" + Date.from(Instant.now()).getTime() + ".txt", false));
             Collections.sort(labels, (o1, o2) -> o1.getFrame() - o2.getFrame());
             for (Label label: labels) {
                 bw.write(label.toString());

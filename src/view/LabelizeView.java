@@ -37,6 +37,13 @@ public class LabelizeView extends View<LabelizeModel, LabelizeController> {
         });
         panel.add(play);
 
+        JButton prevSave = new JButton("Previous and Save");
+        prevSave.addActionListener(e -> {
+            PreviewController.getInstance().save();
+            PreviewController.getInstance().prev();
+        });
+        panel.add(prevSave);
+
         JButton prev = new JButton("Previous");
         prev.addActionListener(e -> PreviewController.getInstance().prev());
         panel.add(prev);
