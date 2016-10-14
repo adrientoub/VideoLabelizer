@@ -16,6 +16,14 @@ public class Label {
         this.frame = frame;
     }
 
+    public int getFrame() {
+        return frame;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

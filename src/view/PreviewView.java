@@ -8,17 +8,18 @@ import controller.PreviewController;
 import framework.Application;
 import framework.ImagePanel;
 import framework.View;
+import manager.Label;
 import manager.Media;
 import model.PreviewModel;
 import process.GenerateFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The {@link PreviewView} class takes care of rendering the view for creating,
@@ -46,7 +47,8 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
     private void saveToDisk(PreviewView previewView) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", false));
-            for (manager.Label label: labels) {
+            Collections.sort(labels, (o1, o2) -> o1.getFrame() - o2.getFrame());
+            for (Label label: labels) {
                 bw.write(label.toString());
             }
             bw.close();
@@ -57,7 +59,13 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
 
     private void savePoints(PreviewView previewView) {
         List<Point> points = imagePanel.getPoints();
-        labels.add(new manager.Label(controller().getFrame(), points));
+        for (Label label: labels) {
+            if (label.getFrame() == controller().getFrame()) {
+                label.setPoints(points);
+                return;
+            }
+        }
+        labels.add(new Label(controller().getFrame(), points));
     }
 
     private void handle(Media m) {
