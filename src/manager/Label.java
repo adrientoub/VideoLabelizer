@@ -16,6 +16,8 @@ public class Label {
         this.frame = frame;
     }
 
+    public int nbPoints() { return this.points.size(); }
+
     public int getFrame() {
         return frame;
     }

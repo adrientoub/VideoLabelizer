@@ -84,6 +84,7 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
         try {
             BufferedImage bi = new GenerateFrame(frame).call();
             ((VideoLabelizer)application()).getLabelizeView().setFrame(frame);
+            ((VideoLabelizer)application()).getLabelizeView().setLabelsCount(labels.stream().mapToInt(Label::nbPoints).sum());
             if (bi != null)
                 imagePanel.setImage(bi);
         } catch (Exception e) {
