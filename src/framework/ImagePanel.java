@@ -123,7 +123,7 @@ public class ImagePanel extends JPanel {
         Graphics2D graphics2D = (Graphics2D) image.getGraphics();
         for (Point point: label.getPoints()) {
             graphics2D.setColor(Color.green);
-            graphics2D.fillOval((int) point.getX() - 12, (int) point.getY() - 12, 15, 15);
+            graphics2D.fillOval((int) point.getX() - 5, (int) point.getY() - 5, 10, 10);
         }
         graphics2D.dispose();
     }
@@ -132,7 +132,7 @@ public class ImagePanel extends JPanel {
         if (x >= 0 && x < width && y >= 0 && y < height) {
             Graphics2D graphics2D = (Graphics2D) image.getGraphics();
             graphics2D.setColor(Color.blue);
-            graphics2D.fillOval(x - 12, y - 12, 15, 15);
+            graphics2D.fillOval(x - 5, y - 5, 10, 10);
             graphics2D.dispose();
 
             points.add(new Point(x, y));
