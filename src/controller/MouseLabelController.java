@@ -18,12 +18,6 @@ public class MouseLabelController extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        super.mouseClicked(e);
-        Graphics2D graphics2D = (Graphics2D) imagePanel.getImage().getGraphics();
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillOval(e.getX() - 12, e.getY() - 12, 15, 15);
-        graphics2D.dispose();
-        imagePanel.getPoints().add(new Point(e.getX(), e.getY()));
-        imagePanel.repaint();
+        imagePanel.addPoint(e.getX(), e.getY());
     }
 }

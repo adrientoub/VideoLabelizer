@@ -103,10 +103,6 @@ public class ImagePanel extends JPanel {
         }
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
     public void setImage(BufferedImage image) {
         this.image = image;
         width = image.getWidth();
@@ -120,6 +116,18 @@ public class ImagePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+    }
+
+    public void addPoint(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            Graphics2D graphics2D = (Graphics2D) image.getGraphics();
+            graphics2D.setColor(Color.blue);
+            graphics2D.fillOval(x - 12, y - 12, 15, 15);
+            graphics2D.dispose();
+
+            points.add(new Point(x, y));
+            repaint();
+        }
     }
 
     public List<Point> getPoints() {
