@@ -16,14 +16,6 @@ public class Image implements Media {
         name = file.getName();
     }
 
-    public static BufferedImage deepCopyBufferedImage(BufferedImage image) {
-        BufferedImage copy = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-        int[] buffer = new int[image.getWidth() * image.getHeight()];
-        image.getRGB(0, 0, image.getWidth(), image.getHeight(), buffer, 0, image.getWidth());
-        copy.setRGB(0, 0, image.getWidth(), image.getHeight(), buffer, 0, image.getWidth());
-        return copy;
-    }
-
     @Override
     public int getFrameFromMilliseconds(long time) {
         return 0;

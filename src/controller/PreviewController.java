@@ -25,8 +25,8 @@ public final class PreviewController extends Controller<PreviewModel, PreviewVie
         return instance;
     }
 
-    public void setMedia(Media new_media) {
-        media = new_media;
+    public void setMedia(Media newMedia) {
+        media = newMedia;
         frame = 0;
     }
 

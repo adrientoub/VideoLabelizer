@@ -22,10 +22,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * The {@link PreviewView} class takes care of rendering the view for creating,
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public final class PreviewView extends View<PreviewModel, PreviewController> {
     private ImagePanel imagePanel;
-    private ArrayList<manager.Label> labels = new ArrayList<>();
+    private Map<Integer, Label> labels = new TreeMap<>();
 
     public PreviewView(final Application application) {
         super(application);
@@ -53,9 +50,9 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
     private void saveToDisk(PreviewView previewView) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(controller().getMedia().getName() + "-" + Date.from(Instant.now()).getTime() + ".txt", false));
-            Collections.sort(labels, (o1, o2) -> o1.getFrame() - o2.getFrame());
-            for (Label label: labels) {
-                bw.write(label.toString());
+            for (Map.Entry<Integer, Label> label: labels.entrySet()) {
+                bw.write("Frame " + label.getKey() + "\n");
+                bw.write(label.getValue().toString());
             }
             bw.close();
         } catch (IOException e) {
@@ -65,13 +62,8 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
 
     private void savePoints(PreviewView previewView) {
         List<Point> points = imagePanel.getPoints();
-        for (Label label: labels) {
-            if (label.getFrame() == controller().getFrame()) {
-                label.setPoints(points);
-                return;
-            }
-        }
-        labels.add(new Label(controller().getFrame(), points));
+        int currentFrame = controller().getFrame();
+        labels.put(currentFrame, new Label(points));
     }
 
     private void handle(Media m) {
@@ -84,7 +76,7 @@ public final class PreviewView extends View<PreviewModel, PreviewController> {
         try {
             BufferedImage bi = new GenerateFrame(frame).call();
             ((VideoLabelizer)application()).getLabelizeView().setFrame(frame);
-            ((VideoLabelizer)application()).getLabelizeView().setLabelsCount(labels.stream().mapToInt(Label::nbPoints).sum());
+            ((VideoLabelizer)application()).getLabelizeView().setLabelsCount(labels.values().stream().mapToInt(Label::size).sum());
             if (bi != null)
                 imagePanel.setImage(bi);
         } catch (Exception e) {
