@@ -1,6 +1,7 @@
 package framework;
 
 import controller.MouseLabelController;
+import manager.Label;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -116,6 +117,15 @@ public class ImagePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+    }
+
+    public void addOldLabel(Label label) {
+        Graphics2D graphics2D = (Graphics2D) image.getGraphics();
+        for (Point point: label.getPoints()) {
+            graphics2D.setColor(Color.green);
+            graphics2D.fillOval((int) point.getX() - 12, (int) point.getY() - 12, 15, 15);
+        }
+        graphics2D.dispose();
     }
 
     public void addPoint(int x, int y) {

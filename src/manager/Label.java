@@ -15,7 +15,11 @@ public class Label {
     }
 
     public int size() {
-        return this.points.size();
+        return points.size();
+    }
+
+    public List<Point> getPoints() {
+        return points;
     }
 
     @Override

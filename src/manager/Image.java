@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Image implements Media {
     private BufferedImage image;
-    private long duration = 5000;
+    private final long duration = 5000;
     private String name;
 
     public Image(File file) throws IOException {
